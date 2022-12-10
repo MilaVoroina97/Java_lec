@@ -1,15 +1,15 @@
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.util.ArrayList;
-// import java.util.Arrays;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-// import java.util.stream.Collectors;
-// import java.lang.Math;
+
 
 
 
@@ -103,10 +103,10 @@ public class task2 {
     }
 
     static public int[][] sum(int[]pol1[],int[]pol2[]){
-        // int m = Math.max(pol1[0][1]+1,pol2[0][1]+1);
-        // int[] x = new int[m];
+        int m = Math.max(pol1[0][1]+1,pol2[0][1]+1);
+        int[] x = new int[m];
         int[] res[] = new int[pol1.length+pol2.length][2];
-        int[] resu[] = new int[pol1.length+pol2.length+1][2];
+        int[] resu[] = new int[m][2];
         for(int k = 0; k < pol1.length+pol2.length; k++){
             if(k < pol1.length){
                 res[k] = pol1[k];
@@ -114,20 +114,17 @@ public class task2 {
                 res[k] = pol2[k - (pol1.length)];
             }
         }
-        int sum = 0;
-        for(int i = 0; i < pol1.length+pol2.length-1; i++){
-            if(res[i][1] == res[i+1][1]){
-                sum = res[i][0] + res[i+1][0];
-                resu[i][0] = sum;
-                resu[i][0] = res[i][1];
-            }else if(res[i][1] > res[i+1][1]){
-                resu[i] = res[i];
-            }else if(res[i+1][1] > res[i][1]){
-                resu[i] = res[i+1];
-            }
+        for(int i[]: res){
+            x[i[1]]+= i[0];
         }
-        // int sum = 0;
+        for(int j = 0; j < x.length; j++){
+            if(x[j] != 0){
+                resu[j][0] = x[j];
+                resu[j][1] = j;
+            }
 
+
+        }
         // for(int i = 0; i < pol1.length+pol2.length; i++){
         //     if((pol1[i][1] == pol2[i][1]) || (pol2[i][1] == pol1[i][1] )){
         //         sum = pol1[i][0] + pol2[i][0];
@@ -146,8 +143,83 @@ public class task2 {
         return resu;
     }
 
+    static public void printPoly(int poly[], int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(poly[i]);
+            if (i != 0) {
+                System.out.print("x^" + i);
+            }
+            if (i != n - 1) {
+                System.out.print(" + ");
+            }
+        }
+    }
+
+    class Node 
+    {
+        int coeff;
+        int pow;
+        Node next;
+        Node(int a, int b)
+        {
+            coeff = a;
+            pow = b;
+            next = null;
+        }
+    }
+
+    public static <T> List<List<T>> zip(List<T>... lists) {
+        List<List<T>> zipped = new ArrayList<List<T>>();
+        for (List<T> list : lists) {
+            for (int i = 0, listSize = list.size(); i < listSize; i++) {
+                List<T> list2;
+                if (i >= zipped.size())
+                    zipped.add(list2 = new ArrayList<T>());
+                else
+                    list2 = zipped.get(i);
+                list2.add(list.get(i));
+            }
+        }
+        return zipped;
+    }
+
+    static public void printPol(int[]res[]){
+        List<Integer> coeffs = new ArrayList<>();
+        List<Integer> pows = new ArrayList<>();
+        List<String> f = new ArrayList<>();
+        for(int y = 0; y < res.length; y++){
+            f.add("*x^");
+        }
+        for (int t[]: res){
+            coeffs.add(t[0]);
+            pows.add(t[1]);
+        }
+        // int[] cof = coeffs.stream().mapToInt(i -> i).toArray();
+        // int[] p = pows.stream().mapToInt(i -> i).toArray();
+        // String[] v = new String[f.size()];
+        // f.toArray(v);
+
+        List<List<Integer>> zipped = zip(coeffs,pows);
+        // List<List<String>> collect = zipped
+        //     .stream()
+        //     .map(a -> a
+        //             .stream()
+        //             .map(b -> b
+        //                     .stream()
+        //                     .map(String::valueOf)
+        //                     .collect(Collectors.toList()))
+        //             .collect(Collectors.toList()))
+        //     .collect(Collectors.toList());
+
+
+
+
+
+    }
+
+
     public static void main(String[] args) throws Exception{
-        int[] g[] = get_pol("2x^3+ 2x^2 + 1x + 5 = 0");
+        int[] g[] = get_pol("2x^3+ 2x^2 + 1x = 0");
         // for(int[] a: g){
         //     for(int item :a){
         //         System.out.println(item);
@@ -173,6 +245,9 @@ public class task2 {
         }
         System.out.println(l.length);
         System.out.println(l[0].length);
+        printPol(l);
+
+
 
 
 
