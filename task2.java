@@ -1,18 +1,16 @@
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-
-
+import java.util.stream.Collectors;
+import java.util.function.Function;
 
 public class task2 {
     static public void wr(String file, String pol){
@@ -102,6 +100,17 @@ public class task2 {
 
     }
 
+    static public int[][] rotateClockwise(int[][] matrix) {
+        int rowNum = matrix.length;
+        int colNum = matrix[0].length;
+        int[][] temp = new int[rowNum][colNum];
+        for (int i = 0; i < rowNum; i++) {
+            for (int j = 0; j < colNum; j++) {
+                temp[i][j] = matrix[rowNum - j - 1][i];
+            }
+        }
+        return temp;
+    }
     static public int[][] sum(int[]pol1[],int[]pol2[]){
         int m = Math.max(pol1[0][1]+1,pol2[0][1]+1);
         int[] x = new int[m];
@@ -140,7 +149,15 @@ public class task2 {
         //         res[i] = pol1[i];
         //     }
         // }
-        return resu;
+
+        int v = resu.length;// 5
+        int n = resu[0].length; // 2
+        int[] hah[] = new int[v][n];
+        for(int q = 0; q < v + resu.length; q++){
+            hah[q] = resu[v-1];
+            v--;
+        }
+        return hah;
     }
 
     static public void printPoly(int poly[], int n) {
@@ -194,22 +211,25 @@ public class task2 {
             coeffs.add(t[0]);
             pows.add(t[1]);
         }
-        // int[] cof = coeffs.stream().mapToInt(i -> i).toArray();
-        // int[] p = pows.stream().mapToInt(i -> i).toArray();
-        // String[] v = new String[f.size()];
-        // f.toArray(v);
+        int[] cof = coeffs.stream().mapToInt(i -> i).toArray();
+        int[] p = pows.stream().mapToInt(i -> i).toArray();
+        String[] v = new String[f.size()];
+        f.toArray(v);
+        String pol = "";
+        for(int h = 0; h < cof.length; h++){
+            pol += (String.valueOf(cof[h]));
+            pol += v[0];
+            pol += (String.valueOf(p[h]));
+            pol += "+";
+        }
+        StringBuilder s = new StringBuilder(pol);
+        s.append("=0");
+        System.out.println(s);
 
-        List<List<Integer>> zipped = zip(coeffs,pows);
-        // List<List<String>> collect = zipped
-        //     .stream()
-        //     .map(a -> a
-        //             .stream()
-        //             .map(b -> b
-        //                     .stream()
-        //                     .map(String::valueOf)
-        //                     .collect(Collectors.toList()))
-        //             .collect(Collectors.toList()))
-        //     .collect(Collectors.toList());
+
+        // List<List<Integer>> zipped = zip(coeffs,pows);
+        // System.out.println(zipped);
+        // List<List<String>> aa = zipped.stream().map((a -> a.stream().map(String::valueOf)).collect(Collectors.toList())).collect(Collectors.toList());
 
 
 
@@ -219,7 +239,7 @@ public class task2 {
 
 
     public static void main(String[] args) throws Exception{
-        int[] g[] = get_pol("2x^3+ 2x^2 + 1x = 0");
+        int[] g[] = get_pol("11x^8 + 10x^5 + 2x^3+ 2x^2 + 6x + 8 = 0");
         // for(int[] a: g){
         //     for(int item :a){
         //         System.out.println(item);
@@ -227,7 +247,7 @@ public class task2 {
         //     System.out.println();
         // }
 
-        int[] t[] = get_pol("8x^4 + 4x^3 + 2x^2 + 3x + 9 = 0");
+        int[] t[] = get_pol("12x^8 + 8x^4 + 4x^3 + 2x^2 + 3x + 9 = 0");
         // for(int[] a: t){
         //     for(int item :a){
         //         System.out.println(item);
