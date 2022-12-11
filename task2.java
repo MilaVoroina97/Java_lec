@@ -2,15 +2,15 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.Buffer;
+// import java.nio.Buffer;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.function.Function;
+// import java.util.stream.Collectors;
+// import java.util.function.Function;
 
 public class task2 {
     static public void wr(String file, String pol){
