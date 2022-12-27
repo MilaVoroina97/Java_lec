@@ -51,7 +51,7 @@ public class tasklec3 {
         List<Character> list1 = List.of('P','u','l','s','o','n');
         System.out.println(list1);
         // list1.remove(1); Unsupported Operation
-        List<Character> list2 = List.copyOf(list1);
+        // List<Character> list2 = List.copyOf(list1);
         List<Character> arr = new ArrayList<Character>();
         arr.add('P');
         arr.add('u');
